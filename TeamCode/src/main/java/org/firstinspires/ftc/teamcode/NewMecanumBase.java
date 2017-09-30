@@ -18,9 +18,9 @@ public class NewMecanumBase extends OpMode {
     DcMotor BotLeft;
     DcMotor BotRight;
 
-    //Conveyor Motors
+    /*//Conveyor Motors
     DcMotor Con1;
-    DcMotor Con2;
+    DcMotor Con2; */
     @Override
     public void init(){
         TopLeft = hardwareMap.dcMotor.get("topleft");
@@ -28,8 +28,10 @@ public class NewMecanumBase extends OpMode {
         BotLeft = hardwareMap.dcMotor.get("botleft");
         BotRight = hardwareMap.dcMotor.get("botright");
 
+        /*
         Con1 = hardwareMap.dcMotor.get("con1");
         Con2 = hardwareMap.dcMotor.get("con2");
+        */
     }
 
     @Override
