@@ -26,9 +26,6 @@ public class Yoga_Blue extends LinearOpMode
 
         //Get hardware maps for the motors
         topLeft = hardwareMap.dcMotor.get("topleft");
-
-
-
         topRight = hardwareMap.dcMotor.get("topright");
         botLeft = hardwareMap.dcMotor.get("botleft");
         botRight = hardwareMap.dcMotor.get("botright");
