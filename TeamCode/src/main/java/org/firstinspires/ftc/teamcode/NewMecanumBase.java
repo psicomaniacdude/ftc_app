@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 /**
  * Created by RoboPir8s on 9/27/2017.
  */
+@TeleOp(name = "TeleOp", group = "Loop OpMode")
 public class NewMecanumBase extends OpMode {
 
 
