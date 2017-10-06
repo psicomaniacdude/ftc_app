@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -17,7 +18,7 @@ import com.qualcomm.robotcore.util.Range;
 * THIS IS NOT REFINED
 *ALL NUBERS ARE GUESSES
  */
-
+@Disabled
 @TeleOp(name = "TELEOPRESET", group = "Loop OpMode")
 public class TELEOPRESET extends OpMode
 {

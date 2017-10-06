@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
@@ -18,6 +19,8 @@ public class NewMecanumBase extends OpMode {
     DcMotor BotLeft;
     DcMotor BotRight;
 
+    ColorSensor JewelSensor;
+
     /*//Conveyor Motors
     DcMotor Con1;
     DcMotor Con2; */
@@ -28,6 +31,8 @@ public class NewMecanumBase extends OpMode {
         BotLeft = hardwareMap.dcMotor.get("botleft");
         BotRight = hardwareMap.dcMotor.get("botright");
 
+        JewelSensor = hardwareMap.colorSensor.get("jewelsensor");
+
         /*
         Con1 = hardwareMap.dcMotor.get("con1");
         Con2 = hardwareMap.dcMotor.get("con2");
@@ -36,6 +41,8 @@ public class NewMecanumBase extends OpMode {
 
     @Override
     public void loop(){
+        telemetry.addData("Jewel", JewelSensor.argb());
+        telemetry.update();
 
         //Set up Holonomic drive
         double Throttle = -gamepad1.left_stick_y;

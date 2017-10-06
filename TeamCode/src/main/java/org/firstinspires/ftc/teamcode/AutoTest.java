@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import java.util.Vector;
 
@@ -11,6 +13,8 @@ import java.util.Vector;
 public class AutoTest extends LinearOpMode {
 
     DcMotor TopLeft, TopRight, BotLeft, BotRight;
+    ColorSensor JewelSensor;
+    Servo JewelServo;
     @Override
     public void runOpMode() throws InterruptedException {
         Vector<Integer> steps = new Vector<>(1);
@@ -28,7 +32,7 @@ public class AutoTest extends LinearOpMode {
             if(gamepad1.a && !autoPressed)
             {
                 steps.addElement(1);
-                stringsteps.addElement("Forward Drive");
+                stringSteps.addElement("Forward Drive");
 
                 while(gamepad1.a)
                 {
@@ -37,7 +41,7 @@ public class AutoTest extends LinearOpMode {
             }
             waitForStart();
 
-            for(int step = 0; step < steps.size(); step++) //This is where we define each case
+            /*for(int step = 0; step < steps.size(); step++) //This is where we define each case
             {
                 switch (steps.get(step))
                 {
@@ -77,21 +81,28 @@ public class AutoTest extends LinearOpMode {
                         step = steps.size();
                         break;
                 }
-            }
+            }*/
 
         }
 
     }
-    public class instructions //This is where we define the steps for each case
+    public class instructions
+    {//This is where we define the steps for each case
     private double leftPower, rightPower,power = 1;
 
-    {
-        public void Forward_Drive(long duration) throws InterruptedException
+        public void Forward_Drive ( long duration)throws InterruptedException
         {
             TopLeft.setPower(power);
             TopRight.setPower(power);
             BotLeft.setPower(-power);
             BotRight.setPower(-power);
         }
+
+
+        public void Jewel_Read (long duration) throws InterruptedException
+    {
+        telemetry.addData("Jewel", JewelSensor.argb());
+        telemetry.update();
+    }
     }
 }
