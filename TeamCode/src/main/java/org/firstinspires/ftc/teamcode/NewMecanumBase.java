@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -19,6 +20,10 @@ public class NewMecanumBase extends OpMode {
     DcMotor BotLeft;
     DcMotor BotRight;
 
+    //Servos
+    Servo LeftCollector;
+    Servo RightCollector;
+
     ColorSensor JewelSensor;
 
     /*//Conveyor Motors
@@ -31,7 +36,12 @@ public class NewMecanumBase extends OpMode {
         BotLeft = hardwareMap.dcMotor.get("botleft");
         BotRight = hardwareMap.dcMotor.get("botright");
 
-        JewelSensor = hardwareMap.colorSensor.get("jewelsensor");
+        JewelSensor = hardwareMap.colorSensor.get("jewel");
+
+        LeftCollector = hardwareMap.servo.get("lc");
+        RightCollector = hardwareMap.servo.get("rc");
+
+        RightCollector.setDirection(Servo.Direction.REVERSE);
 
         /*
         Con1 = hardwareMap.dcMotor.get("con1");
@@ -43,6 +53,8 @@ public class NewMecanumBase extends OpMode {
     public void loop(){
         telemetry.addData("Jewel", JewelSensor.argb());
         telemetry.update();
+
+        double power = .5;
 
         //Set up Holonomic drive
         double Throttle = -gamepad1.left_stick_y;
@@ -63,5 +75,26 @@ public class NewMecanumBase extends OpMode {
         TopRight.setPower(TopR);
         BotLeft.setPower(BotL);
         BotRight.setPower(BotR);
+
+        if (gamepad1.dpad_up)
+        {
+            power = 1;
+        }
+        if(gamepad1.dpad_down)
+        {
+            power = .5;
+        }
+        if(gamepad1.dpad_right)
+        {
+            power = -1;
+        }
+        if(gamepad1.dpad_left)
+        {
+            power = 0;
+        }
+        telemetry.addData("Power", power);
+
+        LeftCollector.setPosition(power);
+        RightCollector.setPosition(power);
     }
 }
