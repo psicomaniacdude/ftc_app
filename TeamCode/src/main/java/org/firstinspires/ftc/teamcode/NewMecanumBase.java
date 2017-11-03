@@ -19,16 +19,20 @@ public class NewMecanumBase extends OpMode {
     DcMotor TopRight;
     DcMotor BotLeft;
     DcMotor BotRight;
+    DcMotor ArmMotor;
+    DcMotor LiftMotor;
+    DcMotor ConveyorMotor;
 
     //Servos
-    Servo LeftCollector;
-    Servo RightCollector;
+    //Servo LeftCollector;
+    //Servo RightCollector;
+    Servo ColorServo;
+    Servo JointServo;
+    Servo ClampServo;
+
 
     ColorSensor JewelSensor;
 
-    /*//Conveyor Motors
-    DcMotor Con1;
-    DcMotor Con2; */
     @Override
     public void init(){
         TopLeft = hardwareMap.dcMotor.get("topleft");
@@ -38,14 +42,11 @@ public class NewMecanumBase extends OpMode {
 
         JewelSensor = hardwareMap.colorSensor.get("jewel");
 
+        /*
         LeftCollector = hardwareMap.servo.get("lc");
         RightCollector = hardwareMap.servo.get("rc");
 
         RightCollector.setDirection(Servo.Direction.REVERSE);
-
-        /*
-        Con1 = hardwareMap.dcMotor.get("con1");
-        Con2 = hardwareMap.dcMotor.get("con2");
         */
     }
 
@@ -54,7 +55,11 @@ public class NewMecanumBase extends OpMode {
         telemetry.addData("Jewel", JewelSensor.argb());
         telemetry.update();
 
-        double power = .5;
+        double power = 0;
+        double ServoPos = .5;
+        double ArmPos = .5;
+        double ConveyorSpeed = 0;
+        double ClampPos = .5;
 
         //Set up Holonomic drive
         double Throttle = -gamepad1.left_stick_y;
@@ -76,6 +81,68 @@ public class NewMecanumBase extends OpMode {
         BotLeft.setPower(BotL);
         BotRight.setPower(BotR);
 
+        ArmMotor.setPower(gamepad2.left_stick_y);
+        LiftMotor.setPower(gamepad1.right_stick_y);
+
+        if(gamepad2.a)
+        {
+            ArmPos = 1;
+        }
+        if(gamepad2.b)
+        {
+            ArmPos = .25;
+        }
+        if(gamepad2.y)
+        {
+            ArmPos = 0;
+        }
+        ColorServo.setPosition(ArmPos);
+
+        if(gamepad2.dpad_up)
+        {
+            ServoPos = 1;
+        }
+        if(gamepad2.dpad_down)
+        {
+            ServoPos = 0;
+        }
+        if(gamepad2.dpad_right)
+        {
+            ServoPos = .5;
+        }
+        JointServo.setPosition(ServoPos);
+
+        if(gamepad2.right_trigger > 0)
+        {
+            power = 1;
+        }
+        if(gamepad2.right_bumper)
+        {
+            power = 0;
+        }
+        ConveyorMotor.setPower(power);
+
+        if(gamepad1.right_trigger>0)
+        {
+            ConveyorSpeed = .5;
+        }
+        if(gamepad1.right_bumper)
+        {
+            ConveyorSpeed = 0;
+        }
+        ConveyorMotor.setPower(ConveyorSpeed);
+
+        if(gamepad2.left_trigger > 0)
+        {
+            ClampPos = 1;
+        }
+        if(gamepad2.left_bumper)
+        {
+            ClampPos = 0;
+        }
+        ClampServo.setPosition(ClampPos);
+
+        /*
         if (gamepad1.dpad_up)
         {
             power = 1;
@@ -93,8 +160,8 @@ public class NewMecanumBase extends OpMode {
             power = 0;
         }
         telemetry.addData("Power", power);
-
         LeftCollector.setPosition(power);
         RightCollector.setPosition(power);
+        */
     }
 }
