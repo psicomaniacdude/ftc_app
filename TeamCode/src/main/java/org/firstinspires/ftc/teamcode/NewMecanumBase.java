@@ -21,14 +21,12 @@ public class NewMecanumBase extends OpMode {
     DcMotor BotRight;
     DcMotor ArmMotor;
     DcMotor LiftMotor;
-    DcMotor ConveyorMotor;
+    DcMotor RightCollectMotor;
+    DcMotor LeftCollectMotor;
 
-    //Servos
-    //Servo LeftCollector;
-    //Servo RightCollector;
-    Servo ColorServo;
-    Servo JointServo;
+    Servo ElbowServo;
     Servo ClampServo;
+    Servo TrayServo;
 
 
     ColorSensor JewelSensor;
@@ -39,15 +37,16 @@ public class NewMecanumBase extends OpMode {
         TopRight = hardwareMap.dcMotor.get("topright");
         BotLeft = hardwareMap.dcMotor.get("botleft");
         BotRight = hardwareMap.dcMotor.get("botright");
+        RightCollectMotor = hardwareMap.dcMotor.get("collectright");
+        LeftCollectMotor = hardwareMap.dcMotor.get("collectleft");
+        LiftMotor = hardwareMap.dcMotor.get("lift");
+        ArmMotor = hardwareMap.dcMotor.get("ArmMotor");
+
+        ElbowServo = hardwareMap.servo.get("elbow");
+        ClampServo = hardwareMap.servo.get("clamp");
+        TrayServo = hardwareMap.servo.get("tray");
 
         JewelSensor = hardwareMap.colorSensor.get("jewel");
-
-        /*
-        LeftCollector = hardwareMap.servo.get("lc");
-        RightCollector = hardwareMap.servo.get("rc");
-
-        RightCollector.setDirection(Servo.Direction.REVERSE);
-        */
     }
 
     @Override
@@ -58,7 +57,6 @@ public class NewMecanumBase extends OpMode {
         double power = 0;
         double ServoPos = .5;
         double ArmPos = .5;
-        double ConveyorSpeed = 0;
         double ClampPos = .5;
 
         //Set up Holonomic drive
@@ -81,22 +79,34 @@ public class NewMecanumBase extends OpMode {
         BotLeft.setPower(BotL);
         BotRight.setPower(BotR);
 
-        ArmMotor.setPower(gamepad2.left_stick_y);
-        LiftMotor.setPower(gamepad1.right_stick_y);
+        RightCollectMotor.setPower(gamepad2.right_stick_y);
+        LeftCollectMotor.setPower(gamepad2.left_stick_y);
 
-        if(gamepad2.a)
+        if (gamepad2.right_trigger>0)
         {
-            ArmPos = 1;
+            ArmMotor.setPower(1);
+        }else{
+            ArmMotor.setPower(0);
         }
-        if(gamepad2.b)
+        if(gamepad2.left_trigger>0)
         {
-            ArmPos = .25;
+            ArmMotor.setPower(-1);
+        }else{
+            ArmMotor.setPower(0);
         }
-        if(gamepad2.y)
+
+        if (gamepad2.dpad_up)
         {
-            ArmPos = 0;
+            LiftMotor.setPower(.5);
+        }else {
+            LiftMotor.setPower(0);
         }
-        ColorServo.setPosition(ArmPos);
+        if (gamepad2.dpad_down)
+        {
+            LiftMotor.setPower(-.5);
+        }else{
+            LiftMotor.setPower(0);
+        }
 
         if(gamepad2.dpad_up)
         {
@@ -110,29 +120,9 @@ public class NewMecanumBase extends OpMode {
         {
             ServoPos = .5;
         }
-        JointServo.setPosition(ServoPos);
+        ElbowServo.setPosition(ServoPos);
 
-        if(gamepad2.right_trigger > 0)
-        {
-            power = 1;
-        }
         if(gamepad2.right_bumper)
-        {
-            power = 0;
-        }
-        ConveyorMotor.setPower(power);
-
-        if(gamepad1.right_trigger>0)
-        {
-            ConveyorSpeed = .5;
-        }
-        if(gamepad1.right_bumper)
-        {
-            ConveyorSpeed = 0;
-        }
-        ConveyorMotor.setPower(ConveyorSpeed);
-
-        if(gamepad2.left_trigger > 0)
         {
             ClampPos = 1;
         }
@@ -142,26 +132,124 @@ public class NewMecanumBase extends OpMode {
         }
         ClampServo.setPosition(ClampPos);
 
-        /*
-        if (gamepad1.dpad_up)
-        {
-            power = 1;
-        }
-        if(gamepad1.dpad_down)
-        {
-            power = .5;
-        }
-        if(gamepad1.dpad_right)
-        {
-            power = -1;
-        }
-        if(gamepad1.dpad_left)
-        {
-            power = 0;
-        }
-        telemetry.addData("Power", power);
-        LeftCollector.setPosition(power);
-        RightCollector.setPosition(power);
-        */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
