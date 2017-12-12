@@ -55,14 +55,14 @@ public class NewMecanumBase extends OpMode {
         telemetry.update();
 
         double power = 0;
-        double ServoPos = .5;
+        double ServoPos = 0;
         double ArmPos = .5;
-        double ClampPos = .5;
+        double ClampPos = 0;
 
         //Set up Holonomic drive
-        double Throttle = -gamepad1.left_stick_y;
+        double Throttle = -gamepad1.right_stick_x;
         double Holonomic = gamepad1.left_stick_x;
-        double Direction = gamepad1.right_stick_x;
+        double Direction = gamepad1.left_stick_y;
 
         double TopL = Throttle + Holonomic + Direction;
         double TopR = -Throttle + Holonomic + Direction;
@@ -79,35 +79,24 @@ public class NewMecanumBase extends OpMode {
         BotLeft.setPower(BotL);
         BotRight.setPower(BotR);
 
-        RightCollectMotor.setPower(gamepad2.right_stick_y);
-        LeftCollectMotor.setPower(gamepad2.left_stick_y);
+        RightCollectMotor.setPower(gamepad2.right_stick_y+gamepad2.right_stick_x);
+        LeftCollectMotor.setPower(-gamepad2.right_stick_y+gamepad2.right_stick_x);
 
-        if (gamepad2.right_trigger>0)
-        {
-            ArmMotor.setPower(1);
-        }else{
-            ArmMotor.setPower(0);
-        }
-        if(gamepad2.left_trigger>0)
-        {
-            ArmMotor.setPower(-1);
-        }else{
-            ArmMotor.setPower(0);
-        }
+        ArmMotor.setPower(gamepad2.right_trigger+(-gamepad2.left_trigger));
 
-        if (gamepad2.dpad_up)
+        if(gamepad1.dpad_up)
         {
             LiftMotor.setPower(.5);
-        }else {
-            LiftMotor.setPower(0);
         }
-        if (gamepad2.dpad_down)
-        {
+        if(gamepad1.dpad_down) {
             LiftMotor.setPower(-.5);
-        }else{
+        }
+        if(gamepad1.dpad_right)
+        {
             LiftMotor.setPower(0);
         }
 
+        TrayServo.setPosition(1/2*gamepad2.left_stick_y+gamepad2.left_stick_x+.50);
         if(gamepad2.dpad_up)
         {
             ServoPos = 1;
@@ -128,9 +117,10 @@ public class NewMecanumBase extends OpMode {
         }
         if(gamepad2.left_bumper)
         {
-            ClampPos = 0;
+            ClampPos = -1;
         }
         ClampServo.setPosition(ClampPos);
+
 
 
 
