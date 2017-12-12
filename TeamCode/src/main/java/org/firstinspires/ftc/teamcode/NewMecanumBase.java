@@ -32,7 +32,7 @@ public class NewMecanumBase extends OpMode {
     ColorSensor JewelSensor;
 
     @Override
-    public void init(){
+    public void init() {
         TopLeft = hardwareMap.dcMotor.get("topleft");
         TopRight = hardwareMap.dcMotor.get("topright");
         BotLeft = hardwareMap.dcMotor.get("botleft");
@@ -50,7 +50,7 @@ public class NewMecanumBase extends OpMode {
     }
 
     @Override
-    public void loop(){
+    public void loop() {
         telemetry.addData("Jewel", JewelSensor.argb());
         telemetry.update();
 
@@ -70,176 +70,48 @@ public class NewMecanumBase extends OpMode {
         double BotR = -Throttle - Holonomic + Direction;
 
         TopL = Range.clip(TopL, -1, 1);
-        TopR = Range.clip(TopR,-1,1);
-        BotL = Range.clip(BotL,-1,1);
-        BotR = Range.clip(BotR,-1,1);
+        TopR = Range.clip(TopR, -1, 1);
+        BotL = Range.clip(BotL, -1, 1);
+        BotR = Range.clip(BotR, -1, 1);
         //Set motor power to gamepad values
         TopLeft.setPower(TopL);
         TopRight.setPower(TopR);
         BotLeft.setPower(BotL);
         BotRight.setPower(BotR);
 
-        RightCollectMotor.setPower(gamepad2.right_stick_y+gamepad2.right_stick_x);
-        LeftCollectMotor.setPower(-gamepad2.right_stick_y+gamepad2.right_stick_x);
+        RightCollectMotor.setPower(gamepad2.right_stick_y + gamepad2.right_stick_x);
+        LeftCollectMotor.setPower(-gamepad2.right_stick_y + gamepad2.right_stick_x);
 
-        ArmMotor.setPower(gamepad2.right_trigger+(-gamepad2.left_trigger));
+        ArmMotor.setPower(gamepad2.right_trigger + (-gamepad2.left_trigger));
 
-        if(gamepad1.dpad_up)
-        {
+        if (gamepad1.dpad_up) {
             LiftMotor.setPower(.5);
         }
-        if(gamepad1.dpad_down) {
+        if (gamepad1.dpad_down) {
             LiftMotor.setPower(-.5);
         }
-        if(gamepad1.dpad_right)
-        {
+        if (gamepad1.dpad_right) {
             LiftMotor.setPower(0);
         }
 
-        TrayServo.setPosition(1/2*gamepad2.left_stick_y+gamepad2.left_stick_x+.50);
-        if(gamepad2.dpad_up)
-        {
+        TrayServo.setPosition(1 / 2 * gamepad2.left_stick_y + gamepad2.left_stick_x + .50);
+        if (gamepad2.dpad_up) {
             ServoPos = 1;
         }
-        if(gamepad2.dpad_down)
-        {
+        if (gamepad2.dpad_down) {
             ServoPos = 0;
         }
-        if(gamepad2.dpad_right)
-        {
+        if (gamepad2.dpad_right) {
             ServoPos = .5;
         }
         ElbowServo.setPosition(ServoPos);
 
-        if(gamepad2.right_bumper)
-        {
+        if (gamepad2.right_bumper) {
             ClampPos = 1;
         }
-        if(gamepad2.left_bumper)
-        {
+        if (gamepad2.left_bumper) {
             ClampPos = -1;
         }
         ClampServo.setPosition(ClampPos);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
