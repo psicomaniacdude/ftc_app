@@ -14,7 +14,7 @@ import java.util.Vector;
 @Autonomous(name = "Yoga_Blue", group ="Autonomous")
 public class Yoga_Blue extends LinearOpMode
 {
-    DcMotor topLeft,topRight,botRight,botLeft,catapultMotor;
+    DcMotor topLeft,topRight,botRight,botLeft,RightCollectMotor,LeftCollectMotor;//catapultMotor;
     Servo LL, LR, RL, RR, ballStop;
     OpticalDistanceSensor ODSSensor;
 
@@ -29,7 +29,11 @@ public class Yoga_Blue extends LinearOpMode
         topRight = hardwareMap.dcMotor.get("topright");
         botLeft = hardwareMap.dcMotor.get("botleft");
         botRight = hardwareMap.dcMotor.get("botright");
-        catapultMotor = hardwareMap.dcMotor.get("catapult");
+        RightCollectMotor = hardwareMap.dcMotor.get("collectright");
+        LeftCollectMotor = hardwareMap.dcMotor.get("collectleft");
+
+
+        /*catapultMotor = hardwareMap.dcMotor.get("catapult");
         LL = hardwareMap.servo.get("leftl");
         LR = hardwareMap.servo.get("leftr");
         RL = hardwareMap.servo.get("rightl");
@@ -43,6 +47,7 @@ public class Yoga_Blue extends LinearOpMode
         RL.setPosition(0);
         RR.setPosition(0);
         ballStop.setPosition(.75);
+        */
 //        double LightReading = ODSSensor.getLightDetected();
 //        double PowerLeft = ((.5-ODSSensor.getLightDetected())*.3);
 //        double PowerRight = (ODSSensor.getLightDetected() -.255)*.3;
@@ -198,7 +203,7 @@ public class Yoga_Blue extends LinearOpMode
             {
                 case 1://shoot
 
-                    go.shoot(2500);
+                    go.forward(1, 1000);
                     break;
                 case 2://pos 2
 
@@ -323,9 +328,9 @@ public class Yoga_Blue extends LinearOpMode
         }
         public void shoot(long duration) throws InterruptedException
         {
-            catapultMotor.setPower(-1);
+            //catapultMotor.setPower(-1);
             Thread.sleep(500);
-            catapultMotor.setPower(0);
+            //catapultMotor.setPower(0);
             ballStop.setPosition(0);
             Thread.sleep(duration);
         }
