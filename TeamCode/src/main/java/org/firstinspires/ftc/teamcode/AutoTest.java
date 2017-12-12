@@ -12,7 +12,7 @@ import java.util.Vector;
  * Created by RoboPir8s on 1/26/2017
  */
 @Autonomous(name = "Yoga_Blue", group ="Autonomous")
-public class Yoga_Blue extends LinearOpMode
+public class AutoTest extends LinearOpMode
 {
     DcMotor topLeft,topRight,botRight,botLeft,RightCollectMotor,LeftCollectMotor;//catapultMotor;
     Servo LL, LR, RL, RR, ballStop;
@@ -32,25 +32,6 @@ public class Yoga_Blue extends LinearOpMode
         RightCollectMotor = hardwareMap.dcMotor.get("collectright");
         LeftCollectMotor = hardwareMap.dcMotor.get("collectleft");
 
-
-        /*catapultMotor = hardwareMap.dcMotor.get("catapult");
-        LL = hardwareMap.servo.get("leftl");
-        LR = hardwareMap.servo.get("leftr");
-        RL = hardwareMap.servo.get("rightl");
-        RR = hardwareMap.servo.get("rightr");
-        ballStop = hardwareMap.servo.get("ballstop");
-        ODSSensor = hardwareMap.opticalDistanceSensor.get("ods");
-        LR.setDirection(Servo.Direction.REVERSE);
-        RR.setDirection(Servo.Direction.REVERSE);
-        LL.setPosition(0);
-        LR.setPosition(0);
-        RL.setPosition(0);
-        RR.setPosition(0);
-        ballStop.setPosition(.75);
-        */
-//        double LightReading = ODSSensor.getLightDetected();
-//        double PowerLeft = ((.5-ODSSensor.getLightDetected())*.3);
-//        double PowerRight = (ODSSensor.getLightDetected() -.255)*.3;
         while(!isStarted())
         {
             telemetry.addData("Start Delay: ", startDelay / 1000);
@@ -221,17 +202,12 @@ public class Yoga_Blue extends LinearOpMode
                     go.stop(3000);
                     break;
                 case 4:
-                    long duration =System.currentTimeMillis();
-                    while (!exit) {
-                        go.lineFollow();
-                        if (System.currentTimeMillis() - duration < 50000) exit =true;
-                    }
+                    go.Dump(1, 2000);
                     break;
                 case 5:
                     step = steps.size();//needs to be updated will button push program do this last
                     break;
                 case 6:
-                    go.Skooch(1200);
                     break;
                 case 99:
                     step = steps.size();
@@ -247,41 +223,11 @@ public class Yoga_Blue extends LinearOpMode
         {
             //placeholder
         }
-        public void Skooch(long duration) throws InterruptedException
+        public void Dump (double power, long duration) throws InterruptedException
         {
-
-            power *= -1;
-            strafeLeft(power,duration);
-            topRight.setPower(0);
-            topLeft.setPower(0);
-            botLeft.setPower(0);
-            botRight.setPower(0);
-        }
-        public  void lineFollow()
-        {
-            telemetry.addData("light", ODSSensor.getLightDetected());
-            telemetry.update();
-            double motorMotifier = (ODSSensor.getLightDetected() -.255);
-            if (motorMotifier <= 0)
-            {
-                leftPower = motorMotifier * .75;
-                rightPower = .75;
-            }
-            else
-            {
-                leftPower = .75;
-                rightPower = motorMotifier *.75;
-            }
-            Range.clip(leftPower,-1,1);
-            Range.clip(rightPower,-1,1);
-            topLeft.setPower(leftPower);
-            botLeft.setPower(leftPower);
-            topRight.setPower(rightPower);
-            botRight.setPower(rightPower);
-//            topLeft.setPower(.5 + ((ODSSensor.getLightDetected() - .255) * .3));
-//            topRight.setPower(.5 + ((ODSSensor.getLightDetected()+ .255)*.3));
-//            botRight.setPower(.5 + ((ODSSensor.getLightDetected()+ .255)*.3));
-//            botLeft.setPower(.5 + ((ODSSensor.getLightDetected() - .255) * .3));
+            RightCollectMotor.setPower(power);
+            LeftCollectMotor.setPower(power);
+            Thread.sleep(duration);
         }
         public void forward(double power, long duration) throws InterruptedException
         {
@@ -291,7 +237,6 @@ public class Yoga_Blue extends LinearOpMode
             botLeft.setPower(power);
             botRight.setPower(-power);
             Thread.sleep(duration);
-
         }
 
         public void spinLeft(double power, long duration) throws InterruptedException
