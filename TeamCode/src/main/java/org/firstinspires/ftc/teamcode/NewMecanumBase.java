@@ -27,6 +27,7 @@ public class NewMecanumBase extends OpMode {
     Servo ElbowServo;
     Servo ClampServo;
     Servo TrayServo;
+    Servo TrayServo2;
 
 
     ColorSensor JewelSensor;
@@ -45,8 +46,11 @@ public class NewMecanumBase extends OpMode {
         ElbowServo = hardwareMap.servo.get("elbow");
         ClampServo = hardwareMap.servo.get("clamp");
         TrayServo = hardwareMap.servo.get("tray");
+        TrayServo2 =hardwareMap.servo.get("tray2");
 
-        JewelSensor = hardwareMap.colorSensor.get("jewel");
+        JewelSensor = hardwareMap.colorSensor.get("jewelsensor");
+
+        TrayServo2.setDirection(Servo.Direction.REVERSE);
     }
 
     @Override
@@ -54,7 +58,7 @@ public class NewMecanumBase extends OpMode {
         telemetry.addData("Jewel", JewelSensor.argb());
         telemetry.update();
 
-        double power = 0;
+        double trayPos = .55;
         double ServoPos = 0;
         double ArmPos = .5;
         double ClampPos = 0;
@@ -84,17 +88,25 @@ public class NewMecanumBase extends OpMode {
 
         ArmMotor.setPower(gamepad2.right_trigger + (-gamepad2.left_trigger));
 
+        if(gamepad2.left_stick_y < 0)
+        {
+            trayPos = 1;
+        }
+        if(gamepad2.left_stick_x > 0)
+        {
+            trayPos = .6;
+        }
+        TrayServo.setPosition(trayPos);
+
         if (gamepad1.dpad_up) {
-            LiftMotor.setPower(.5);
+            LiftMotor.setPower(-.5);
         }
         if (gamepad1.dpad_down) {
-            LiftMotor.setPower(-.5);
+            LiftMotor.setPower(.5);
         }
         if (gamepad1.dpad_right) {
             LiftMotor.setPower(0);
         }
-
-        TrayServo.setPosition(1 / 2 * gamepad2.left_stick_y + gamepad2.left_stick_x + .50);
         if (gamepad2.dpad_up) {
             ServoPos = 1;
         }
