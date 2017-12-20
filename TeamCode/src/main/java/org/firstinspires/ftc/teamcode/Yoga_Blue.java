@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
@@ -11,6 +12,7 @@ import java.util.Vector;
 /**
  * Created by RoboPir8s on 1/26/2017
  */
+@Disabled
 @Autonomous(name = "Yoga_Blue", group ="Autonomous")
 public class Yoga_Blue extends LinearOpMode
 {

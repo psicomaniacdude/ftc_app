@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 /**
  * Created by RoboPir8s on 1/26/2017.
  */
+@Disabled
 @Autonomous(name = "Yoga_Blue_Backup", group ="Autonomous")
 public class Yoga_Blue_Backup extends LinearOpMode{
     DcMotor topLeft,topRight,botRight,botLeft,catapultMotor;

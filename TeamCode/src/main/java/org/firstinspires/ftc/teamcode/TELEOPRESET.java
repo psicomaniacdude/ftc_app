@@ -12,12 +12,6 @@ import com.qualcomm.robotcore.util.Range;
  * Created by RoboPir8s on 9/19/2016.
  * latest iteration 11/10/16
  */
-/*THIS ALL NEEDS TO BE CHANGED
-*THIS ALL NEEDS TO BE CHANGED
-* THIS ALL NEED TO BE CHANGED
-* THIS IS NOT REFINED
-*ALL NUBERS ARE GUESSES
- */
 @Disabled
 @TeleOp(name = "TELEOPRESET", group = "Loop OpMode")
 public class TELEOPRESET extends OpMode
